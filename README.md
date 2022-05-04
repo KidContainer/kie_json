@@ -9,7 +9,7 @@ For use this library, one could always download it into your device and include 
 #### Conan
 This library is also available in my private conan repo.  Use it with conan by the following
 command.
-```
+```shell
 conan remote add kie-kies https://conan.cloudsmith.io/kie/kies/
 ```
 Then add `kie_json/0.1.0` to your `conanfile.txt`.
@@ -18,14 +18,14 @@ Then add `kie_json/0.1.0` to your `conanfile.txt`.
 Thanks to the new `CMakeDeps` and `CMakeToolchain` generators which are non intrusive. This library can be used without conan directly.
 
 Download this library.
-```
+```shell
 cd your_lib_folder
 
 git clone https://github.com/Kidsunbo/kie_json.git
 ```
 
 Add to your `CMakeLists.txt`
-```
+```cmake
 add_subdirectory(kie_json)
 
 target_link_libraries(<target> PUBLIC kie_json)
