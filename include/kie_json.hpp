@@ -47,6 +47,15 @@ namespace kie::json
     using Type = T;
     T value{};
     std::string tag;
+
+    JsonField& operator= (const T& t){
+      value = t;
+      return *this;
+    }
+
+    operator T&(){
+      return value;
+    }
   };
 
   template<type_trait::is_container T>
