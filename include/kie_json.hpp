@@ -107,6 +107,9 @@ namespace impl{
     return t;
   }
 
+  template<type_trait::is_dynamic_container T>
+  T from_json(const nlohmann::json& j);
+
 
   template<typename T> requires std::is_aggregate_v<T>
   T from_json(const nlohmann::json& j){
