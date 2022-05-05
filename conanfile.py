@@ -33,11 +33,6 @@ class KieJsonConan(ConanFile):
         self.folders.build = "build"
         self.folders.generators = "build/conan"
 
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
-
     def package(self):
         self.copy("*.h", "include", "include")
         self.copy("*.hpp", "include", "include")
@@ -46,6 +41,3 @@ class KieJsonConan(ConanFile):
     def package_id(self):
         self.info.header_only()
 
-
-    def package_info(self):
-        self.cpp_info.libs = ["kie_json"]
