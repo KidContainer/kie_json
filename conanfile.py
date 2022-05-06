@@ -30,7 +30,8 @@ class KieJsonConan(ConanFile):
             del self.options.fPIC
 
     def layout(self):
-        cmake_layout(self)
+        self.folders.build = "build"
+        self.folders.generators = "build/conan"
 
     def package(self):
         self.copy("*.h", "include", "include")
