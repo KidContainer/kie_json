@@ -61,11 +61,11 @@ jobs:
       run: ctest -C $BUILD_TYPE
 
     - name: Lcov
-      working-directory:  ${{github.workspace}}
+      working-directory:  ${{github.workspace}}/build/coverage
       shell: bash
-      run: lcov --capture --directory . -o coverage.info --no-external
+      run: lcov --capture --directory $GITHUB_WORKSPACE -o coverage.info --no-external
 
     - name: Upload to Codecov.io
-      working-directory: ${{github.workspace}}
+      working-directory: ${{github.workspace}}/build/coverage
       shell: bash
       run: curl -Os https://uploader.codecov.io/latest/linux/codecov && chmod +x codecov && ./codecov
