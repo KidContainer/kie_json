@@ -60,6 +60,11 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C $BUILD_TYPE
 
+    - name: Prepare the folder for coverage
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: mkdir coverage
+
     - name: Lcov
       working-directory:  ${{github.workspace}}/build/coverage
       shell: bash
