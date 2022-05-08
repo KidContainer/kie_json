@@ -4,7 +4,7 @@ on: [push]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
+  BUILD_TYPE: Debug
   CC: gcc-10
   CXX: g++-10
 
@@ -26,15 +26,15 @@ jobs:
 
     - name: Install Conan
       # Install the content of dependency
-      run: sudo apt update && sudo apt install -y python3 python3-pip && pip install conan
+      run: sudo apt update && sudo apt install -y python3 python3-pip lcov curl && pip install conan
 
     - name: Configure Conan
-      run: conan profile new default --detect && conan profile update settings.compiler.libcxx=libstdc++11 default
+      run: conan profile new default --detect && conan profile update settings.compiler.libcxx=libstdc++11 settings.build_type=$BUILD_TYPE default
 
     - name: Install Dependency
       working-directory: ${{github.workspace}}/build
       
-      run: conan install .. --build=missing -pr:b=default
+      run: conan install .. --build=missing -pr:b=default -pr:h=default
 
     - name: Configure CMake
       # Use a bash shell so we can use the same syntax for environment variable
@@ -44,7 +44,7 @@ jobs:
       # Note the current convention is to use the -S and -B options here to specify source 
       # and build directories, but this is only available with CMake 3.13 and higher.  
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=conan/conan_toolchain.cmake
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=conan/conan_toolchain.cmake -DENABLE_TEST=ON
 
 
     - name: Build
@@ -59,3 +59,13 @@ jobs:
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C $BUILD_TYPE
+
+    - name: Lcov
+      working-directory:  ${{github.workspace}}
+      shell: bash
+      run: lcov --capture --directory . -o coverage.info --no-external
+
+    - name: Upload to Codecov.io
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: curl -Os https://uploader.codecov.io/latest/linux/codecov && chmod +x codecov && ./codecov

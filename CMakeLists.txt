@@ -9,7 +9,13 @@ find_package(Boost REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(GTest REQUIRED)
 
-add_subdirectory(test)
+option(ENABLE_TEST "If enable test to compile and run test, the coverage will also be generated" OFF)
+
+if(ENABLE_TEST)
+    add_compile_options(--coverage -g)
+    add_link_options(--coverage)
+    add_subdirectory(test)
+endif()
 
 add_library(kie_json INTERFACE)
 target_include_directories(kie_json INTERFACE include)
