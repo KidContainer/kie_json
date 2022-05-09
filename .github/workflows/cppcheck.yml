@@ -21,7 +21,7 @@ jobs:
 
     - name: Prepare for compiling CPPCheck
       working-directory: ${{github.workspace}}
-      run: sudo apt update && sudo apt install wget && wget https://github.com/danmar/cppcheck/archive/2.7.tar.gz && tar –xvzf 2.7.tar.gz && rm -f 2.7.tar.gz
+      run: sudo apt update && sudo apt install wget && wget https://github.com/danmar/cppcheck/archive/2.7.tar.gz && tar -xvzf 2.7.tar.gz && rm -f 2.7.tar.gz
 
     - name: Compile CPPCheck
       working-directory: ${{github.workspace}}/cppcheck-2.7
