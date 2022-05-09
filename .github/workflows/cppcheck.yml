@@ -19,9 +19,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Prepare for compiling CPPCheck
+      working-directory: ${{github.workspace}}
+      run: sudo apt update && sudo apt install wget && wget https://github.com/danmar/cppcheck/archive/2.7.tar.gz && tar –xvzf 2.7.tar.gz && rm -f 2.7.tar.gz
+
+    - name: Compile CPPCheck
+      working-directory: ${{github.workspace}}/cppcheck-2.7
+      run: g++ -o cppcheck -std=c++11 -Iexternals -Iexternals/simplecpp -Iexternals/tinyxml2 -Iexternals/picojson -Ilib cli/*.cpp lib/*.cpp externals/simplecpp/simplecpp.cpp externals/tinyxml2/*.cpp
+
     - name: Install CPPCheck
-      run: sudo apt update && sudo apt install cppcheck
+      working-directory: ${{github.workspace}}
+      run: cp ${{github.workspace}}/cppcheck-2.7/cppcheck . && rm -rf cppcheck-2.7
 
     - name: CPPCheck
       working-directory: ${{github.workspace}}
-      run: cppcheck --enable=all --error-exitcode=1 -I include/ .
+      run: ./cppcheck --enable=all --error-exitcode=1 -I include/ .
