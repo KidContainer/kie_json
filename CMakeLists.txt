@@ -12,7 +12,7 @@ find_package(GTest REQUIRED)
 option(ENABLE_TEST "If enable test to compile and run test, the coverage will also be generated" OFF)
 
 if(ENABLE_TEST)
-    add_compile_options(--coverage -g -Wall -Wextra -Werror)
+    add_compile_options(--coverage -g)
     add_link_options(--coverage)
     add_subdirectory(test)
 endif()
