@@ -20,3 +20,6 @@ endif()
 add_library(kie_json INTERFACE)
 target_include_directories(kie_json INTERFACE include)
 target_link_libraries(kie_json INTERFACE boost::boost nlohmann_json::nlohmann_json gtest::gtest)
+
+install(DIRECTORY include/ DESTINATION include)
+install(FILES LICENSE DESTINATION license)

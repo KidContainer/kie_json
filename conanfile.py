@@ -1,4 +1,5 @@
 from conan import ConanFile
+from conan.tools.cmake import CMake
 
 
 class KieJsonConan(ConanFile):
@@ -33,9 +34,9 @@ class KieJsonConan(ConanFile):
         self.folders.generators = "build/conan"
 
     def package(self):
-        self.copy("*.h", "include", "include")
-        self.copy("*.hpp", "include", "include")
-        self.copy("LICENSE", "license")
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.install()
 
     def package_id(self):
         self.info.header_only()
