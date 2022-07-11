@@ -3,6 +3,7 @@
 [![CMake](https://github.com/Kidsunbo/kie_json/actions/workflows/cmake.yml/badge.svg)](https://github.com/Kidsunbo/kie_json/actions/workflows/cmake.yml)
 [![Latest version of 'kie_json' @ Cloudsmith](https://api-prd.cloudsmith.io/v1/badges/version/kie/kies/conan/kie_json/latest/xc=_;xp=_/?render=true&show_latest=true)](https://cloudsmith.io/~kie/repos/kies/packages/detail/conan/kie_json/latest/xc=_;xp=_/)
 [![codecov](https://codecov.io/gh/Kidsunbo/kie_json/branch/master/graph/badge.svg?token=X3THMAG9TA)](https://codecov.io/gh/Kidsunbo/kie_json)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Kidsunbo/kie_json.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Kidsunbo/kie_json/alerts/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
