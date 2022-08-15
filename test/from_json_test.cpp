@@ -49,27 +49,27 @@ TEST(FromJson, StructPartial) {
   };
 
   struct A{
-    kie::json::JsonField<int> i={.tag="ii"};
+    kie::json::Field<int,"ii"> i;
     bool b;
     Inner inner;
   };
 
   struct B{
-    kie::json::JsonField<int> i = {.tag="i"};
+    kie::json::Field<int, "i"> i;
     bool b;
-    kie::json::JsonField<Inner> inner = {.value={.i=10}, .tag="inner"};
+    kie::json::Field<Inner, "inner"> inner = Inner{.i=10};
   };
 
   struct InnerRecognized{
-     kie::json::JsonField<int> i = {.tag="i"};
+     kie::json::Field<int,"i"> i;
      bool b;
-     kie::json::JsonField<Inner> inner = {.tag="inner"};
+     kie::json::Field<Inner, "inner"> inner;
   };
 
   struct C{
-    kie::json::JsonField<int> i = {.tag="i"};
+    kie::json::Field<int, "i"> i;
     bool b;
-    kie::json::JsonField<InnerRecognized> inner = {.tag="inner_recognized"};
+    kie::json::Field<InnerRecognized, "inner_recognized"> inner;
   };
 
   auto a = from_json<A>("{\"ii\":10}");
@@ -96,7 +96,7 @@ TEST(FromJson, StructContainer) {
   using namespace kie::json;
 
   struct A{
-    kie::json::JsonField<std::vector<int>> i = {.value={1,2,3,4,5}, .tag="i"};
+    kie::json::Field<std::vector<int>, "i"> i = std::vector{1,2,3,4,5};
     bool b;
   };
 
@@ -110,15 +110,15 @@ TEST(FromJson, StructComplex) {
   using namespace kie::json;
 
   struct Inner{
-    kie::json::JsonField<int> i = {.tag="i"};
-    kie::json::JsonField<std::vector<int>> v = {.tag="v"};
+    kie::json::Field<int,"i"> i;
+    kie::json::Field<std::vector<int>, "v"> v;
   };
 
   struct A{
-    kie::json::JsonField<std::vector<int>> i = {.tag="i"};
+    kie::json::Field<std::vector<int>, "i"> i;
     bool b;
-    kie::json::JsonField<Inner> inner = {.tag="inner"};
-    kie::json::JsonField<std::vector<Inner>> inner_vec = {.tag="inner_vec"};
+    kie::json::Field<Inner, "inner"> inner;
+    kie::json::Field<std::vector<Inner>, "inner_vec"> inner_vec;
   };
 
   auto a = from_json<A>("{\"i\":[1,2,3,4,5],\"inner\":{\"i\":10,\"v\":[1,2,3,4,5]},\"inner_vec\":[{\"i\":10,\"v\":[1,2,3,4,5]},{\"i\":10,\"v\":[1,2,3,4,5]},{\"i\":10,\"v\":[1,2,3,4,5]}]}");

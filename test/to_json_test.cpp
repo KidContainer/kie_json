@@ -62,27 +62,27 @@ TEST(ToJson, StructPartial) {
   };
 
   struct A{
-    kie::json::JsonField<int> i={.tag="ii"};
+    kie::json::Field<int, "ii"> i;
     bool b;
     Inner inner;
   };
 
   struct B{
-    kie::json::JsonField<int> i = {.tag="i"};
+    kie::json::Field<int, "i"> i;
     bool b;
-    kie::json::JsonField<Inner> inner = {.value={.i=10}, .tag="inner"};
+    kie::json::Field<Inner, "inner"> inner = Inner{.i= 10};
   };
 
   struct InnerRecognized{
-     kie::json::JsonField<int> i = {.value=10, .tag="i"};
+     kie::json::Field<int, "i"> i = 10;
      bool b;
-     kie::json::JsonField<Inner> inner = {.tag="inner"};
+     kie::json::Field<Inner, "inner"> inner;
   };
 
   struct C{
-    kie::json::JsonField<int> i = {.tag="i"};
+    kie::json::Field<int, "i"> i;
     bool b;
-    kie::json::JsonField<InnerRecognized> inner = {.value={.i={.value=20, .tag="i"}}, .tag="inner_recognized"};
+    kie::json::Field<InnerRecognized, "inner_recognized"> inner = InnerRecognized{.i=20};
   };
 
   EXPECT_EQ(to_json(A{}).dump(), "{\"ii\":0}");
@@ -95,7 +95,7 @@ TEST(ToJson, StructContainer) {
   using namespace kie::json;
 
   struct A{
-    kie::json::JsonField<std::vector<int>> i = {.value={1,2,3,4,5}, .tag="i"};
+    kie::json::Field<std::vector<int>, "i"> i = std::vector{1,2,3,4,5};
     bool b;
   };
 
@@ -107,15 +107,15 @@ TEST(ToJson, StructComplex) {
   using namespace kie::json;
 
   struct Inner{
-    kie::json::JsonField<int> i = {.value=10, .tag="i"};
-    kie::json::JsonField<std::vector<int>> v = {.value={1,2,3,4,5}, .tag="v"};
+    kie::json::Field<int, "i"> i = 10;
+    kie::json::Field<std::vector<int>, "v"> v = std::vector{1,2,3,4,5};
   };
 
   struct A{
-    kie::json::JsonField<std::vector<int>> i = {.value={1,2,3,4,5}, .tag="i"};
+    kie::json::Field<std::vector<int>, "i"> i = std::vector{1,2,3,4,5};
     bool b;
-    kie::json::JsonField<Inner> inner = {.tag="inner"};
-    kie::json::JsonField<std::array<Inner,3>> inner_array = {.tag="inner_array"};
+    kie::json::Field<Inner, "inner"> inner;
+    kie::json::Field<std::array<Inner,3>, "inner_array"> inner_array;
   };
 
   EXPECT_EQ(to_json(A{}).dump(), "{\"i\":[1,2,3,4,5],\"inner\":{\"i\":10,\"v\":[1,2,3,4,5]},\"inner_array\":[{\"i\":10,\"v\":[1,2,3,4,5]},{\"i\":10,\"v\":[1,2,3,4,5]},{\"i\":10,\"v\":[1,2,3,4,5]}]}");
