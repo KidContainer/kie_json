@@ -27,6 +27,10 @@ TEST(FromJson, StructComplex) {
   a.inner_vec = vec;
   EXPECT_EQ(to_json(a).dump(), "{\"i\":[1,2,3],\"inner\":{\"i\":10,\"v\":[1,2,3]},\"inner_vec\":[{\"i\":0,\"v\":null},{\"i\":2,\"v\":[1,2,3]}]}");
 
+  a.inner_vec = vec;
+  EXPECT_EQ(to_json(a).dump(), "{\"i\":[1,2,3],\"inner\":{\"i\":10,\"v\":[1,2,3]},\"inner_vec\":[{\"i\":0,\"v\":null},{\"i\":2,\"v\":[1,2,3]}]}");
+
+
   A b{.inner_vec = vec};
   EXPECT_EQ(to_json(b).dump(), "{\"i\":null,\"inner\":{\"i\":0,\"v\":null},\"inner_vec\":[{\"i\":0,\"v\":null},{\"i\":2,\"v\":[1,2,3]}]}");
 
