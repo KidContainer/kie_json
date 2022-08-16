@@ -21,6 +21,10 @@ TEST(FromJson, StructComplex)
     kie::json::Field<std::vector<Inner>, "inner_vec"> inner_vec;
   };
 
+  struct B{
+    kie::json::Field<int, "f"> f;
+  };
+
   A a{.i = std::vector{1, 2, 3}, .b = true, .inner = Inner{.i = 10, .v = std::vector{1, 2, 3}}};
   EXPECT_EQ(to_json(a).dump(), "{\"i\":[1,2,3],\"inner\":{\"i\":10,\"v\":[1,2,3]},\"inner_vec\":null}");
 
@@ -37,6 +41,9 @@ TEST(FromJson, StructComplex)
   b.i = a.i;
   EXPECT_EQ(to_json(b).dump(), "{\"i\":[1,2,3],\"inner\":{\"i\":0,\"v\":null},\"inner_vec\":[{\"i\":0,\"v\":null},{\"i\":2,\"v\":[1,2,3]}]}");
 
+  B c;
+  c.f = 1;
+  
 }
 
 int main(int argc, char **argv)
