@@ -158,7 +158,7 @@ namespace kie::json
     nlohmann::json to_json(const std::string &)
     {
         nlohmann::json j;
-        return j; // return null for string without wrapping with JsonField
+        return j; // return null for string without wrapping with Field
     }
 
     template <type_trait::is_container T>
