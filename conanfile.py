@@ -23,7 +23,7 @@ class KieJsonConan(ConanFile):
     no_copy_source = True
 
     generators = "CMakeToolchain", "CMakeDeps"
-    requires = "boost/1.78.0", "nlohmann_json/3.10.5", "gtest/cci.20210126"
+    requires = "boost/1.79.0", "nlohmann_json/3.10.5", "gtest/cci.20210126"
 
     def config_options(self):
         if self.settings.os == "Windows":
