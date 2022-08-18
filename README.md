@@ -9,6 +9,8 @@
 
 **Kie_JSON** is a library that aims to convenience and simple usage. C++ struct can be serialized and deserialized into/from json as easy as possible. It depends on [nlohmann_json](https://github.com/nlohmann/json) for json parsing and [Boost.PFR](https://github.com/boostorg/pfr) for reflection.
 
+## This project has been merged into [kie_toolbox_cpp](https://github.com/Kidsunbo/kie_toolbox_cpp)
+
 ## Install
 
 For use this library, one could always download it into your workspace and include it as it's a single header library. But some other way is also available.
